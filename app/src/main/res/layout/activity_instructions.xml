@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".InstructionsActivity">
+
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="How To Play Tic Tac Toe, For Dummies." />
+
+    <TextView
+        android:id="@+id/textObjective"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Objective:
+        \nBeat the other player by forcing a win without them see your plan all along." />
+
+    <TextView
+        android:id="@+id/textRules"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Rules:
+        \n 1) A player adds a symbol 'x' or 'o' in turns into only empty squares, player 1 uses 'x' and player 2 'o'.
+        \n 2) If a player gets three of their symbol in a row/column/diagonal, it is considered a win.
+        \n 3) Players play until all squares are filled, if no one get three adjacent symbols, the game ends in a tie." />
+
+    <Button
+        android:id="@+id/toHome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back Home" />
+</LinearLayout>
