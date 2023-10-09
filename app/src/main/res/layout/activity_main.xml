@@ -22,7 +22,7 @@
     <Button
         android:id="@+id/toInstructions"
         android:layout_width="310dp"
-        android:layout_height="47dp"
+        android:layout_height="65dp"
         android:text="How To Play"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +33,7 @@
     <Button
         android:id="@+id/toPlayScreen"
         android:layout_width="310dp"
-        android:layout_height="47dp"
+        android:layout_height="65dp"
         android:text="Play 1v.1; X and O"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -127,7 +127,7 @@
     <Button
         android:id="@+id/toHome"
         android:layout_width="310dp"
-        android:layout_height="47dp"
+        android:layout_height="65dp"
 
         android:text="Back Home"
         app:layout_constraintBottom_toBottomOf="parent"
