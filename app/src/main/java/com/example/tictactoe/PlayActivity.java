@@ -1,5 +1,6 @@
 package com.example.tictactoe;
 
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class PlayActivity extends AppCompatActivity {
@@ -432,6 +434,7 @@ public class PlayActivity extends AppCompatActivity {
     {
         if(score == 3)
         {
+            resetButtons();
             currentPlayer.setText("Player ONE");
             for (int[] i : grid) {
                 Arrays.fill(i, 0);
@@ -445,6 +448,7 @@ public class PlayActivity extends AppCompatActivity {
         }
         else if(score == -3)
         {
+            resetButtons();
             currentPlayer.setText("Player ONE");
             for (int[] i : grid) {
                 Arrays.fill(i, 0);
@@ -460,7 +464,19 @@ public class PlayActivity extends AppCompatActivity {
 
     private void resetButtons()
     {
-         Button[] btn = new Button[9];
-//         String[] btn_id = {R.id.btn0, R.id.btn1, R.id.btn2, R.id.btn3};
+        ArrayList<Button> btnAll = new ArrayList<Button>();
+        btnAll.add(buttonTL);
+        btnAll.add(buttonTC);
+        btnAll.add(buttonTR);
+        btnAll.add(buttonML);
+        btnAll.add(buttonMC);
+        btnAll.add(buttonMR);
+        btnAll.add(buttonBL);
+        btnAll.add(buttonBC);
+        btnAll.add(buttonBR);
+        for(Button btn: btnAll)
+        {
+            btn.setText("~");
+        }
     }
 }
