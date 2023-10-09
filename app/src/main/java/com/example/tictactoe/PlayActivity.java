@@ -15,7 +15,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class PlayActivity extends AppCompatActivity {
+public class PlayActivity extends AppCompatActivity implements View.OnClickListener {
     private Button toHomeButton;
     private Button
             buttonTL, buttonTC, buttonTR,
@@ -530,5 +530,10 @@ public class PlayActivity extends AppCompatActivity {
         {
             btn.setText("~");
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 }
