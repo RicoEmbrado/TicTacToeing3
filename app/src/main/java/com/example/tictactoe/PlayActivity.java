@@ -61,6 +61,9 @@ public class PlayActivity extends AppCompatActivity {
 
         //onclick listeners
         allOnCLicks();
+
+        //check for tie
+
     }
     public void openHome()
     {
@@ -103,6 +106,10 @@ public class PlayActivity extends AppCompatActivity {
                     reset(winCheckDL(turnNum, grid)); //checks win
                     reset(winCheckRT(turnNum, grid)); //checks win
                 }
+                if(turnNum > 9)
+                {
+                    reset(7);
+                }
             }
         });
 
@@ -137,6 +144,10 @@ public class PlayActivity extends AppCompatActivity {
                 if(turnNum > 5) {
                     reset(winCheckCC(turnNum, grid)); //checks win
                     reset(winCheckRT(turnNum, grid)); //checks win
+                }
+                if(turnNum > 9)
+                {
+                    reset(7);
                 }
             }
         });
@@ -174,6 +185,10 @@ public class PlayActivity extends AppCompatActivity {
                     reset(winCheckDR(turnNum, grid)); //checks win
                     reset(winCheckRT(turnNum, grid)); //checks win
                 }
+                if(turnNum > 9)
+                {
+                    reset(7);
+                }
             }
         });
 
@@ -208,6 +223,10 @@ public class PlayActivity extends AppCompatActivity {
                 if(turnNum > 5) {
                     reset(winCheckCL(turnNum, grid)); //checks win
                     reset(winCheckRM(turnNum, grid)); //checks win
+                }
+                if(turnNum > 9)
+                {
+                    reset(7);
                 }
             }
         });
@@ -246,6 +265,10 @@ public class PlayActivity extends AppCompatActivity {
                     reset(winCheckDR(turnNum, grid)); //checks win
                     reset(winCheckRM(turnNum, grid)); //checks win
                 }
+                if(turnNum > 9)
+                {
+                    reset(7);
+                }
             }
         });
         buttonMR.setOnClickListener(new View.OnClickListener() {
@@ -279,6 +302,10 @@ public class PlayActivity extends AppCompatActivity {
                 if(turnNum > 5) {
                     reset(winCheckCR(turnNum, grid)); //checks win
                     reset(winCheckRM(turnNum, grid)); //checks win
+                }
+                if(turnNum > 9)
+                {
+                    reset(7);
                 }
             }
         });
@@ -315,6 +342,10 @@ public class PlayActivity extends AppCompatActivity {
                     reset(winCheckDR(turnNum, grid)); //checks win
                     reset(winCheckRB(turnNum, grid)); //checks win
                 }
+                if(turnNum > 9)
+                {
+                    reset(7);
+                }
             }
         });
         buttonBC.setOnClickListener(new View.OnClickListener() {
@@ -348,6 +379,10 @@ public class PlayActivity extends AppCompatActivity {
                 if(turnNum > 5) {
                     reset(winCheckCC(turnNum, grid)); //checks win
                     reset(winCheckRB(turnNum, grid)); //checks win
+                }
+                if(turnNum > 9)
+                {
+                    reset(7);
                 }
             }
         });
@@ -383,6 +418,10 @@ public class PlayActivity extends AppCompatActivity {
                     reset(winCheckCR(turnNum, grid)); //checks win
                     reset(winCheckDL(turnNum, grid)); //checks win
                     reset(winCheckRB(turnNum, grid)); //checks win
+                }
+                if(turnNum > 9)
+                {
+                    reset(7);
                 }
             }
         });
@@ -433,6 +472,7 @@ public class PlayActivity extends AppCompatActivity {
     {
         if(score == 3)
         {
+            turnNum = 1;
             resetButtons();
             currentPlayer.setText(turnNum % 2 == 0 ? "Player TWO START": "Player ONE START");
             for (int[] i : grid) {
@@ -447,6 +487,7 @@ public class PlayActivity extends AppCompatActivity {
         }
         else if(score == -3)
         {
+            turnNum = 1;
             resetButtons();
             currentPlayer.setText(turnNum % 2 == 0 ? "Player TWO START": "Player ONE START");
             for (int[] i : grid) {
@@ -458,6 +499,18 @@ public class PlayActivity extends AppCompatActivity {
                     text, Toast.LENGTH_LONG).show();
             TextView textView = (TextView)findViewById(R.id.totalOwin);
             textView.setText(winsO + "");
+        }
+        else if(score == 7)
+        {
+            turnNum = 1;
+            currentPlayer.setText(turnNum % 2 == 0 ? "Player TWO START": "Player ONE START");
+            resetButtons();
+            for (int[] i : grid) {
+                Arrays.fill(i, 0);
+            }
+            CharSequence text = "TIE GAME";
+            Toast.makeText(PlayActivity.this,
+                    text, Toast.LENGTH_LONG).show();
         }
     }
 
