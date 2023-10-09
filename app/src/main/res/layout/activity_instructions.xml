@@ -1,37 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:orientation="vertical"
     tools:context=".InstructionsActivity">
 
     <TextView
         android:id="@+id/textTitle"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="How To Play Tic Tac Toe, For Dummies." />
+        android:text="How To Play Tic Tac Toe, For Dummies."
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.167" />
 
     <TextView
         android:id="@+id/textObjective"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="386dp"
+        android:layout_height="65dp"
         android:text="Objective:
-        \nBeat the other player by forcing a win without them see your plan all along." />
+        \nBeat the other player by forcing a win without them see your plan all along."
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.36"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textTitle"
+        app:layout_constraintVertical_bias="0.217" />
 
     <TextView
         android:id="@+id/textRules"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="385dp"
+        android:layout_height="100dp"
         android:text="Rules:
         \n 1) A player adds a symbol 'x' or 'o' in turns into only empty squares, player 1 uses 'x' and player 2 'o'.
         \n 2) If a player gets three of their symbol in a row/column/diagonal, it is considered a win.
-        \n 3) Players play until all squares are filled, if no one get three adjacent symbols, the game ends in a tie." />
+        \n 3) Players play until all squares are filled, if no one get three adjacent symbols, the game ends in a tie."
+        app:layout_constraintBottom_toTopOf="@+id/toHome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textObjective"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/toHome"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Back Home" />
-</LinearLayout>
+        android:layout_width="310dp"
+        android:layout_height="65dp"
+        android:text="Back Home"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
+</androidx.constraintlayout.widget.ConstraintLayout>
