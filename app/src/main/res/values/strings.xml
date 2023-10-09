@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TicTacToe</string>
+    <string name="totalWinsX">0</string>
+    <string name="totalWinsO">0</string>
+    <string name="blankFill">~</string>
+    <string name="currPlayer">Player ONE</string>
 </resources>
