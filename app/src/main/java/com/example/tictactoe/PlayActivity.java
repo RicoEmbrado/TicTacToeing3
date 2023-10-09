@@ -61,7 +61,6 @@ public class PlayActivity extends AppCompatActivity {
 
         //onclick listeners
         allOnCLicks();
-
     }
     public void openHome()
     {
@@ -435,7 +434,7 @@ public class PlayActivity extends AppCompatActivity {
         if(score == 3)
         {
             resetButtons();
-            currentPlayer.setText("Player ONE");
+            currentPlayer.setText(turnNum % 2 == 0 ? "Player TWO START": "Player ONE START");
             for (int[] i : grid) {
                 Arrays.fill(i, 0);
             }
@@ -449,7 +448,7 @@ public class PlayActivity extends AppCompatActivity {
         else if(score == -3)
         {
             resetButtons();
-            currentPlayer.setText("Player ONE");
+            currentPlayer.setText(turnNum % 2 == 0 ? "Player TWO START": "Player ONE START");
             for (int[] i : grid) {
                 Arrays.fill(i, 0);
             }
