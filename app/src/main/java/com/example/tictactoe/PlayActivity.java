@@ -37,14 +37,6 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
                 {0, 0, 0}
         };
 
-        toHomeButton = (Button) findViewById(R.id.toHome);
-        toHomeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openHome();
-            }
-        });
-
         //declare button for all grid locations
         buttonTL = (Button) findViewById(R.id.btn0); //TopLeft
         buttonTC = (Button) findViewById(R.id.btn1); //TopCenter
