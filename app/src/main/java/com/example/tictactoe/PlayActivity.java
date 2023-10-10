@@ -15,7 +15,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class PlayActivity extends AppCompatActivity {
+public class PlayActivity extends AppCompatActivity implements View.OnClickListener {
     private Button toHomeButton;
     private Button
             buttonTL, buttonTC, buttonTR,
@@ -61,9 +61,6 @@ public class PlayActivity extends AppCompatActivity {
 
         //onclick listeners
         allOnCLicks();
-
-        //check for tie
-
     }
     public void openHome()
     {
@@ -76,22 +73,20 @@ public class PlayActivity extends AppCompatActivity {
         buttonTL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                c = 0;
+//                r = 0;
                 if(grid[0][0] == 0) {
                     if (turnNum % 2 != 0)
                     {
                         turnNum++;
                         grid[0][0] = 1;
                         buttonTL.setText("X");
-//                        Toast.makeText(PlayActivity.this,
-//                                grid[0][0] + " value inside grid", Toast.LENGTH_LONG).show();
                     }
                     else
                     {
                         turnNum++;
                         grid[0][0] = -1;
                         buttonTL.setText("O");
-//                        Toast.makeText(PlayActivity.this,
-//                                grid[0][0] + " value inside grid", Toast.LENGTH_LONG).show();
                     }
                     currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
                 }
@@ -101,18 +96,17 @@ public class PlayActivity extends AppCompatActivity {
                     Toast.makeText(PlayActivity.this,
                             text, Toast.LENGTH_LONG).show();
                 }
+                if(turnNum > 9)
+                {
+                    reset(7);
+                }
                 if(turnNum > 5) {
                     reset(winCheckCL(turnNum, grid)); //checks win
                     reset(winCheckDL(turnNum, grid)); //checks win
                     reset(winCheckRT(turnNum, grid)); //checks win
                 }
-                if(turnNum > 9)
-                {
-                    reset(7);
-                }
             }
         });
-
         buttonTC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,16 +116,12 @@ public class PlayActivity extends AppCompatActivity {
                         turnNum++;
                         grid[0][1] = 1;
                         buttonTC.setText("X");
-//                        Toast.makeText(PlayActivity.this,
-//                                grid[0][0] + " value inside grid", Toast.LENGTH_LONG).show();
                     }
                     else
                     {
                         turnNum++;
                         grid[0][1] = -1;
                         buttonTC.setText("O");
-//                        Toast.makeText(PlayActivity.this,
-//                                grid[0][0] + " value inside grid", Toast.LENGTH_LONG).show();
                     }
                     currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
                 }
@@ -151,7 +141,6 @@ public class PlayActivity extends AppCompatActivity {
                 }
             }
         });
-
         buttonTR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -161,16 +150,12 @@ public class PlayActivity extends AppCompatActivity {
                         turnNum++;
                         grid[0][2] = 1;
                         buttonTR.setText("X");
-//                        Toast.makeText(PlayActivity.this,
-//                                grid[0][0] + " value inside grid", Toast.LENGTH_LONG).show();
                     }
                     else
                     {
                         turnNum++;
                         grid[0][2] = -1;
                         buttonTR.setText("O");
-//                        Toast.makeText(PlayActivity.this,
-//                                grid[0][0] + " value inside grid", Toast.LENGTH_LONG).show();
                     }
                     currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
                 }
@@ -191,7 +176,6 @@ public class PlayActivity extends AppCompatActivity {
                 }
             }
         });
-
         buttonML.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -201,16 +185,12 @@ public class PlayActivity extends AppCompatActivity {
                         turnNum++;
                         grid[1][0] = 1;
                         buttonML.setText("X");
-//                        Toast.makeText(PlayActivity.this,
-//                                grid[0][0] + " value inside grid", Toast.LENGTH_LONG).show();
                     }
                     else
                     {
                         turnNum++;
                         grid[1][0] = -1;
                         buttonML.setText("O");
-//                        Toast.makeText(PlayActivity.this,
-//                                grid[0][0] + " value inside grid", Toast.LENGTH_LONG).show();
                     }
                     currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
                 }
@@ -230,7 +210,6 @@ public class PlayActivity extends AppCompatActivity {
                 }
             }
         });
-
         buttonMC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -240,16 +219,12 @@ public class PlayActivity extends AppCompatActivity {
                         turnNum++;
                         grid[1][1] = 1;
                         buttonMC.setText("X");
-//                        Toast.makeText(PlayActivity.this,
-//                                grid[0][0] + " value inside grid", Toast.LENGTH_LONG).show();
                     }
                     else
                     {
                         turnNum++;
                         grid[1][1] = -1;
                         buttonMC.setText("O");
-//                        Toast.makeText(PlayActivity.this,
-//                                grid[0][0] + " value inside grid", Toast.LENGTH_LONG).show();
                     }
                     currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
                 }
@@ -280,16 +255,12 @@ public class PlayActivity extends AppCompatActivity {
                         turnNum++;
                         grid[1][2] = 1;
                         buttonMR.setText("X");
-//                        Toast.makeText(PlayActivity.this,
-//                                grid[0][0] + " value inside grid", Toast.LENGTH_LONG).show();
                     }
                     else
                     {
                         turnNum++;
                         grid[1][2] = -1;
                         buttonMR.setText("O");
-//                        Toast.makeText(PlayActivity.this,
-//                                grid[0][0] + " value inside grid", Toast.LENGTH_LONG).show();
                     }
                     currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
                 }
@@ -318,16 +289,12 @@ public class PlayActivity extends AppCompatActivity {
                         turnNum++;
                         grid[2][0] = 1;
                         buttonBL.setText("X");
-//                        Toast.makeText(PlayActivity.this,
-//                                grid[0][0] + " value inside grid", Toast.LENGTH_LONG).show();
                     }
                     else
                     {
                         turnNum++;
                         grid[2][0] = -1;
                         buttonBL.setText("O");
-//                        Toast.makeText(PlayActivity.this,
-//                                grid[0][0] + " value inside grid", Toast.LENGTH_LONG).show();
                     }
                     currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
                 }
@@ -357,16 +324,12 @@ public class PlayActivity extends AppCompatActivity {
                         turnNum++;
                         grid[2][1] = 1;
                         buttonBC.setText("X");
-//                        Toast.makeText(PlayActivity.this,
-//                                grid[0][0] + " value inside grid", Toast.LENGTH_LONG).show();
                     }
                     else
                     {
                         turnNum++;
                         grid[2][1] = -1;
                         buttonBC.setText("O");
-//                        Toast.makeText(PlayActivity.this,
-//                                grid[0][0] + " value inside grid", Toast.LENGTH_LONG).show();
                     }
                     currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
                 }
@@ -395,16 +358,12 @@ public class PlayActivity extends AppCompatActivity {
                         turnNum++;
                         grid[2][2] = 1;
                         buttonBR.setText("X");
-//                        Toast.makeText(PlayActivity.this,
-//                                grid[0][0] + " value inside grid", Toast.LENGTH_LONG).show();
                     }
                     else
                     {
                         turnNum++;
                         grid[2][2] = -1;
                         buttonBR.setText("O");
-//                        Toast.makeText(PlayActivity.this,
-//                                grid[0][0] + " value inside grid", Toast.LENGTH_LONG).show();
                     }
                     currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
                 }
@@ -530,5 +489,10 @@ public class PlayActivity extends AppCompatActivity {
         {
             btn.setText("~");
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 }
