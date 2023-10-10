@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class PlayActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button toHomeButton;
     private Button
             buttonTL, buttonTC, buttonTR,
             buttonML, buttonMC, buttonMR,
