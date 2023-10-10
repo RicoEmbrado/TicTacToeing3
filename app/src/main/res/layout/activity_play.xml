@@ -126,7 +126,6 @@
         android:id="@+id/toHome"
         android:layout_width="310dp"
         android:layout_height="65dp"
-        android:onClick="openHome"
         android:text="Back Home"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
