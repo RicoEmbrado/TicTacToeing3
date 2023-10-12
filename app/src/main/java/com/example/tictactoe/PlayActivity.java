@@ -1,6 +1,5 @@
 package com.example.tictactoe;
 
-import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -16,25 +15,24 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class PlayActivity extends AppCompatActivity implements View.OnClickListener {
+    private TextView currentPlayer;
     private Button
             buttonTL, buttonTC, buttonTR,
             buttonML, buttonMC, buttonMR,
             buttonBL, buttonBC, buttonBR;
-    private int[][] grid;
+    private int[][] grid
+          = new int[][]{
+            {0, 0, 0},
+            {0, 0, 0},
+            {0, 0, 0}
+    };;
     private int turnNum = 1;
     private int winsX = 0;
     private int winsO = 0;
-    private TextView currentPlayer;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
-        grid = new int[][]{
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0}
-        };
 
         //declare button for all grid locations
         buttonTL = (Button) findViewById(R.id.btn0); //TopLeft
@@ -47,375 +45,204 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         buttonBC = (Button) findViewById(R.id.btn7); //BotCenter
         buttonBR = (Button) findViewById(R.id.btn8); //BotRight
 
+        //all onclicks
+        buttonTL.setOnClickListener(this);
+        buttonTC.setOnClickListener(this);
+        buttonTR.setOnClickListener(this);
+        buttonML.setOnClickListener(this);
+        buttonMC.setOnClickListener(this);
+        buttonMR.setOnClickListener(this);
+        buttonBL.setOnClickListener(this);
+        buttonBC.setOnClickListener(this);
+        buttonBR.setOnClickListener(this);
+
         //current palyer declaration
         currentPlayer = (TextView)findViewById(R.id.currentPlayer);
-
-        //onclick listeners
-        allOnCLicks();
     }
     public void openHome()
     {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    } //starts the home page activity
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        int placement;
+        if(id == R.id.btn0)
+        {
+            placement = editCheck(0,0);
+            if(placement != 0) {
+                buttonTL.setText(placement == 1 ? "X" : "O");
+                currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
+                if(turnNum > 5) {
+                    reset(winCheckDL());
+                    reset(winCheckC(0));
+                    reset(winCheckR(0));
+                }
+            }
+            if(turnNum > 9)
+                reset(7);
+        }
+        if(id == R.id.btn1)
+        {
+            placement = editCheck(0,1);
+            if(placement != 0) {
+                buttonTC.setText(placement == 1 ? "X" : "O");
+                currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
+                if(turnNum > 5) {
+                    reset(winCheckC(1));
+                    reset(winCheckR(0));
+                }
+            }
+            if(turnNum > 9)
+                reset(7);
+        }
+        if(id == R.id.btn2)
+        {
+            placement = editCheck(0,2);
+            if(placement != 0) {
+                buttonTR.setText(placement == 1 ? "X" : "O");
+                currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
+                if(turnNum > 5) {
+                    reset(winCheckC(2));
+                    reset(winCheckR(0));
+                    reset(winCheckDR());
+                }
+            }
+            if(turnNum > 9)
+                reset(7);
+        }
+        if(id == R.id.btn3)
+        {
+            placement = editCheck(1,0);
+            if(placement != 0) {
+                buttonML.setText(placement == 1 ? "X" : "O");
+                currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
+                if(turnNum > 5) {
+                    reset(winCheckR(1));
+                    reset(winCheckC(0));
+                }
+            }
+            if(turnNum > 9)
+                reset(7);
+        }
+        if(id == R.id.btn4)
+        {
+            placement = editCheck(1,1);
+            if(placement != 0) {
+                buttonMC.setText(placement == 1 ? "X" : "O");
+                currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
+                if(turnNum > 5) {
+                    reset(winCheckR(1));
+                    reset(winCheckC(1));
+                    reset(winCheckDL());
+                    reset(winCheckDR());
+                }
+            }
+            if(turnNum > 9)
+                reset(7);
+        }
+        if(id == R.id.btn5)
+        {
+            placement = editCheck(1,2);
+            if(placement != 0) {
+                buttonMR.setText(placement == 1 ? "X" : "O");
+                currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
+                if(turnNum > 5) {
+                    reset(winCheckC(2));
+                    reset(winCheckR(1));
+                }
+            }
+            if(turnNum > 9)
+                reset(7);
+        }
+        if(id == R.id.btn6)
+        {
+            placement = editCheck(2,0);
+            if(placement != 0) {
+                buttonBL.setText(placement == 1 ? "X" : "O");
+                currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
+                if(turnNum > 5) {
+                    reset(winCheckDR());
+                    reset(winCheckR(2));
+                    reset(winCheckC(2));
+                }
+            }
+            if(turnNum > 9)
+                reset(7);
+        }
+        if(id == R.id.btn7)
+        {
+            placement = editCheck(2,1);
+            if(placement != 0) {
+                buttonBC.setText(placement == 1 ? "X" : "O");
+                currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
+                if(turnNum > 5) {
+                    reset(winCheckR(2));
+                    reset(winCheckC(1));
+                }
+            }
+            if(turnNum > 9)
+                reset(7);
+        }
+        if(id == R.id.btn8)
+        {
+            placement = editCheck(2,2);
+            if(placement != 0) {
+                buttonBR.setText(placement == 1 ? "X" : "O");
+                currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
+                if(turnNum > 5) {
+                    reset(winCheckR(2));
+                    reset(winCheckC(2));
+                    reset(winCheckDL());
+                }
+            }
+            if(turnNum > 9)
+                reset(7);
+        }
     }
 
-    public void allOnCLicks()
+    private int editCheck(int r, int c)
     {
-        buttonTL.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                c = 0;
-//                r = 0;
-                if(grid[0][0] == 0) {
-                    if (turnNum % 2 != 0)
-                    {
-                        turnNum++;
-                        grid[0][0] = 1;
-                        buttonTL.setText("X");
-                    }
-                    else
-                    {
-                        turnNum++;
-                        grid[0][0] = -1;
-                        buttonTL.setText("O");
-                    }
-                    currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
-                }
-                else
-                {
-                    CharSequence text = "Spot's Taken";
-                    Toast.makeText(PlayActivity.this,
-                            text, Toast.LENGTH_LONG).show();
-                }
-                if(turnNum > 9)
-                {
-                    reset(7);
-                }
-                if(turnNum > 5) {
-                    reset(winCheckCL(turnNum, grid)); //checks win
-                    reset(winCheckDL(turnNum, grid)); //checks win
-                    reset(winCheckRT(turnNum, grid)); //checks win
-                }
+        if(grid[r][c] == 0) {
+            if (turnNum % 2 != 0)
+            {
+                turnNum++;
+                grid[r][c] = 1;
+                return 1;
             }
-        });
-        buttonTC.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(grid[0][1] == 0) {
-                    if (turnNum % 2 != 0)
-                    {
-                        turnNum++;
-                        grid[0][1] = 1;
-                        buttonTC.setText("X");
-                    }
-                    else
-                    {
-                        turnNum++;
-                        grid[0][1] = -1;
-                        buttonTC.setText("O");
-                    }
-                    currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
-                }
-                else
-                {
-                    CharSequence text = "Spot's Taken";
-                    Toast.makeText(PlayActivity.this,
-                            text, Toast.LENGTH_LONG).show();
-                }
-                if(turnNum > 5) {
-                    reset(winCheckCC(turnNum, grid)); //checks win
-                    reset(winCheckRT(turnNum, grid)); //checks win
-                }
-                if(turnNum > 9)
-                {
-                    reset(7);
-                }
+            else
+            {
+                turnNum++;
+                grid[r][c] = -1;
+                return -1;
             }
-        });
-        buttonTR.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(grid[0][2] == 0) {
-                    if (turnNum % 2 != 0)
-                    {
-                        turnNum++;
-                        grid[0][2] = 1;
-                        buttonTR.setText("X");
-                    }
-                    else
-                    {
-                        turnNum++;
-                        grid[0][2] = -1;
-                        buttonTR.setText("O");
-                    }
-                    currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
-                }
-                else
-                {
-                    CharSequence text = "Spot's Taken";
-                    Toast.makeText(PlayActivity.this,
-                            text, Toast.LENGTH_LONG).show();
-                }
-                if(turnNum > 5) {
-                    reset(winCheckCR(turnNum, grid)); //checks win
-                    reset(winCheckDR(turnNum, grid)); //checks win
-                    reset(winCheckRT(turnNum, grid)); //checks win
-                }
-                if(turnNum > 9)
-                {
-                    reset(7);
-                }
-            }
-        });
-        buttonML.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(grid[1][0] == 0) {
-                    if (turnNum % 2 != 0)
-                    {
-                        turnNum++;
-                        grid[1][0] = 1;
-                        buttonML.setText("X");
-                    }
-                    else
-                    {
-                        turnNum++;
-                        grid[1][0] = -1;
-                        buttonML.setText("O");
-                    }
-                    currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
-                }
-                else
-                {
-                    CharSequence text = "Spot's Taken";
-                    Toast.makeText(PlayActivity.this,
-                            text, Toast.LENGTH_LONG).show();
-                }
-                if(turnNum > 5) {
-                    reset(winCheckCL(turnNum, grid)); //checks win
-                    reset(winCheckRM(turnNum, grid)); //checks win
-                }
-                if(turnNum > 9)
-                {
-                    reset(7);
-                }
-            }
-        });
-        buttonMC.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(grid[1][1] == 0) {
-                    if (turnNum % 2 != 0)
-                    {
-                        turnNum++;
-                        grid[1][1] = 1;
-                        buttonMC.setText("X");
-                    }
-                    else
-                    {
-                        turnNum++;
-                        grid[1][1] = -1;
-                        buttonMC.setText("O");
-                    }
-                    currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
-                }
-                else
-                {
-                    CharSequence text = "Spot's Taken";
-                    Toast.makeText(PlayActivity.this,
-                            text, Toast.LENGTH_LONG).show();
-                }
-                if(turnNum > 5) {
-                    reset(winCheckCC(turnNum, grid)); //checks win
-                    reset(winCheckDL(turnNum, grid)); //checks win
-                    reset(winCheckDR(turnNum, grid)); //checks win
-                    reset(winCheckRM(turnNum, grid)); //checks win
-                }
-                if(turnNum > 9)
-                {
-                    reset(7);
-                }
-            }
-        });
-        buttonMR.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(grid[1][2] == 0) {
-                    if (turnNum % 2 != 0)
-                    {
-                        turnNum++;
-                        grid[1][2] = 1;
-                        buttonMR.setText("X");
-                    }
-                    else
-                    {
-                        turnNum++;
-                        grid[1][2] = -1;
-                        buttonMR.setText("O");
-                    }
-                    currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
-                }
-                else
-                {
-                    CharSequence text = "Spot's Taken";
-                    Toast.makeText(PlayActivity.this,
-                            text, Toast.LENGTH_LONG).show();
-                }
-                if(turnNum > 5) {
-                    reset(winCheckCR(turnNum, grid)); //checks win
-                    reset(winCheckRM(turnNum, grid)); //checks win
-                }
-                if(turnNum > 9)
-                {
-                    reset(7);
-                }
-            }
-        });
-        buttonBL.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(grid[2][0] == 0) {
-                    if (turnNum % 2 != 0)
-                    {
-                        turnNum++;
-                        grid[2][0] = 1;
-                        buttonBL.setText("X");
-                    }
-                    else
-                    {
-                        turnNum++;
-                        grid[2][0] = -1;
-                        buttonBL.setText("O");
-                    }
-                    currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
-                }
-                else
-                {
-                    CharSequence text = "Spot's Taken";
-                    Toast.makeText(PlayActivity.this,
-                            text, Toast.LENGTH_LONG).show();
-                }
-                if(turnNum > 5) {
-                    reset(winCheckCL(turnNum, grid)); //checks win
-                    reset(winCheckDR(turnNum, grid)); //checks win
-                    reset(winCheckRB(turnNum, grid)); //checks win
-                }
-                if(turnNum > 9)
-                {
-                    reset(7);
-                }
-            }
-        });
-        buttonBC.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(grid[2][1] == 0) {
-                    if (turnNum % 2 != 0)
-                    {
-                        turnNum++;
-                        grid[2][1] = 1;
-                        buttonBC.setText("X");
-                    }
-                    else
-                    {
-                        turnNum++;
-                        grid[2][1] = -1;
-                        buttonBC.setText("O");
-                    }
-                    currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
-                }
-                else
-                {
-                    CharSequence text = "Spot's Taken";
-                    Toast.makeText(PlayActivity.this,
-                            text, Toast.LENGTH_LONG).show();
-                }
-                if(turnNum > 5) {
-                    reset(winCheckCC(turnNum, grid)); //checks win
-                    reset(winCheckRB(turnNum, grid)); //checks win
-                }
-                if(turnNum > 9)
-                {
-                    reset(7);
-                }
-            }
-        });
-        buttonBR.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(grid[2][2] == 0) {
-                    if (turnNum % 2 != 0)
-                    {
-                        turnNum++;
-                        grid[2][2] = 1;
-                        buttonBR.setText("X");
-                    }
-                    else
-                    {
-                        turnNum++;
-                        grid[2][2] = -1;
-                        buttonBR.setText("O");
-                    }
-                    currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
-                }
-                else
-                {
-                    CharSequence text = "Spot's Taken";
-                    Toast.makeText(PlayActivity.this,
-                            text, Toast.LENGTH_LONG).show();
-                }
-                if(turnNum > 5) {
-                    reset(winCheckCR(turnNum, grid)); //checks win
-                    reset(winCheckDL(turnNum, grid)); //checks win
-                    reset(winCheckRB(turnNum, grid)); //checks win
-                }
-                if(turnNum > 9)
-                {
-                    reset(7);
-                }
-            }
-        });
+        }
+        else
+        {
+            CharSequence text = "Spot's Taken";
+            Toast.makeText(PlayActivity.this,
+                    text, Toast.LENGTH_LONG).show();
+            return 0;
+        }
     }
-
     //win check for digaonal l to r
-    private int winCheckDL(int turns, int[][] nums)
+    private int winCheckDL()
     {
-        return nums[0][0] + nums[1][1] + nums[2][2];
+        return grid[0][0] + grid[1][1] + grid[2][2];
     }
     //win check for digaonal r to l
-    private int winCheckDR(int turns, int[][] nums)
+    private int winCheckDR()
     {
-        return nums[2][0] + nums[1][1] + nums[0][2];
+        return grid[2][0] + grid[1][1] + grid[0][2];
     }
-    //win check for column l
-    private int winCheckCL(int turns, int[][] nums)
+    private int winCheckC(int c)
     {
-        return nums[0][0] + nums[1][0]+ nums[2][0];
+        return grid[0][c] + grid[1][c]+ grid[2][c];
     }
-    //win check for column c
-    private int winCheckCC(int turns, int[][] nums)
+    private int winCheckR(int r)
     {
-        return nums[0][1] + nums[1][1] + nums[2][1];
-    }
-    //win check for column r
-    private int winCheckCR(int turns, int[][] nums)
-    {
-        return nums[0][2] + nums[1][2] + nums[2][2];
-    }
-    //win check for row t
-    private int winCheckRT(int turns, int[][] nums)
-    {
-        return nums[0][0] + nums[0][1] + nums[0][2];
-    }
-    //win check for row m
-    private int winCheckRM(int turns, int[][] nums)
-    {
-        return nums[1][0] + nums[1][1] + nums[1][2];
-    }
-    //win check for row b
-    private int winCheckRB(int turns, int[][] nums)
-    {
-        return nums[2][0] + nums[2][1] + nums[2][2];
+        return grid[r][0] + grid[r][1]+ grid[r][2];
     }
 
     private void reset(int score)
@@ -480,10 +307,5 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         {
             btn.setText("~");
         }
-    }
-
-    @Override
-    public void onClick(View view) {
-
     }
 }
