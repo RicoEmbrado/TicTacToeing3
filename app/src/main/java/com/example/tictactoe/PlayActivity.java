@@ -33,7 +33,6 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
-
         //declare button for all grid locations
         buttonTL = (Button) findViewById(R.id.btn0); //TopLeft
         buttonTC = (Button) findViewById(R.id.btn1); //TopCenter
@@ -44,7 +43,6 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         buttonBL = (Button) findViewById(R.id.btn6); //BotLeft
         buttonBC = (Button) findViewById(R.id.btn7); //BotCenter
         buttonBR = (Button) findViewById(R.id.btn8); //BotRight
-
         //all onclicks
         buttonTL.setOnClickListener(this);
         buttonTC.setOnClickListener(this);
@@ -55,7 +53,6 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         buttonBL.setOnClickListener(this);
         buttonBC.setOnClickListener(this);
         buttonBR.setOnClickListener(this);
-
         //current palyer declaration
         currentPlayer = (TextView)findViewById(R.id.currentPlayer);
     }
@@ -165,7 +162,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
                 if(turnNum > 5) {
                     reset(winCheckDR());
                     reset(winCheckR(2));
-                    reset(winCheckC(2));
+                    reset(winCheckC(0));
                 }
             }
             if(turnNum > 9)
@@ -201,7 +198,6 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
                 reset(7);
         }
     }
-
     private int editCheck(int r, int c)
     {
         if(grid[r][c] == 0) {
@@ -244,7 +240,6 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     {
         return grid[r][0] + grid[r][1]+ grid[r][2];
     }
-
     private void reset(int score)
     {
         if(score == 3)
@@ -290,7 +285,6 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
                     text, Toast.LENGTH_LONG).show();
         }
     }
-
     private void resetButtons()
     {
         ArrayList<Button> btnAll = new ArrayList<Button>();
