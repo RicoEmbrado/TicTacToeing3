@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="#F4EBCB"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -12,41 +12,70 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome To... \n  Tic-Tac-Toe!"
-        android:textSize="60dp"
-        android:fontFamily="sans-serif-medium"
+        android:fontFamily="serif-monospace"
+        android:background="#FF5E84"
+        android:text=" Welcome To\nTic-Tac-Toe!"
+        android:textSize="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.363" />
+        app:layout_constraintVertical_bias="0.074" />
 
     <Button
         android:id="@+id/toInstructions"
         android:layout_width="310dp"
         android:layout_height="65dp"
+        android:backgroundTint="#75DDE1"
+        android:fontFamily="serif-monospace"
         android:text="How To Play"
+        android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        android:textSize="30dp"
-        android:fontFamily="sans-serif-condensed"
-        app:layout_constraintVertical_bias="0.295" />
+        app:layout_constraintVertical_bias="0.682" />
 
     <Button
-        android:id="@+id/toPlayScreen"
+        android:id="@+id/toPlayAIScreen"
         android:layout_width="310dp"
         android:layout_height="65dp"
-        android:text="Play 1v.1; X and O"
+        android:layout_marginBottom="88dp"
+        android:backgroundTint="#FFFFFF"
+        android:fontFamily="serif-monospace"
+        android:text="Play Against AI"
+        android:textColor="@color/black"
+        android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toInstructions"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/toPlayLocalCoopScreen"
+        android:layout_width="310dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#75DDE1"
+        android:fontFamily="serif-monospace"
+        android:text="Local Co-Op"
         android:textSize="30dp"
-        android:fontFamily="sans-serif-condensed"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.103" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="230dp"
+        android:layout_height="225dp"
+        android:layout_marginBottom="288dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/blueredtictactoe" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

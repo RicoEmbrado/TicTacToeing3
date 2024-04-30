@@ -8,19 +8,20 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-    //first commit
-    private Button toPlayButton;
+    private Button toPlayLocalCoopButton;
     private Button toInstructionsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        System.out.println("blbl: Entered onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toPlayButton = (Button) findViewById(R.id.toPlayScreen);
+        System.out.println("blbl: about to create some buttons");
+        toPlayLocalCoopButton = (Button) findViewById(R.id.toPlayLocalCoopScreen);
         toInstructionsButton = (Button) findViewById(R.id.toInstructions);
-        toPlayButton.setOnClickListener(new View.OnClickListener() {
+        toPlayLocalCoopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openPlayScreen();
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
                 openInstructions();
             }
         });
+        System.out.println("blbl: ending onCreate for Main Activity");
     }
 
     public void openInstructions()
