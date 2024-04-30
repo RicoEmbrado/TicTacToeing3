@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        //hello, test comment for test commit for test push for test pull
         System.out.println("blbl: Entered onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
