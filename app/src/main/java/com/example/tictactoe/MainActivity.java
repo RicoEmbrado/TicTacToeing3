@@ -10,6 +10,7 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
     private Button toPlayLocalCoopButton;
     private Button toInstructionsButton;
+    private Button toPlayAIScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("blbl: about to create some buttons");
         toPlayLocalCoopButton = (Button) findViewById(R.id.toPlayLocalCoopScreen);
         toInstructionsButton = (Button) findViewById(R.id.toInstructions);
+        toPlayAIScreen = (Button) findViewById(R.id.toPlayAIScreen);
         toPlayLocalCoopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -31,6 +33,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openInstructions();
+            }
+        });
+        toPlayAIScreen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openPlayAIScreen();
             }
         });
         System.out.println("blbl: ending onCreate for Main Activity");
@@ -46,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, PlayActivity.class);
         startActivity(intent);
     }
-
-
+    public void openPlayAIScreen()
+    {
+        Intent intent = new Intent(this, PlayAIActivity.class);
+        startActivity(intent);
+    }
 }
