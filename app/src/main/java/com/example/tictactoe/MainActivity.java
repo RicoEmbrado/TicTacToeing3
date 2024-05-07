@@ -14,27 +14,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        //hello, test comment for test commit for test push for test pull
-        System.out.println("blbl: Entered onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        System.out.println("blbl: about to create some buttons");
         toPlayLocalCoopButton = (Button) findViewById(R.id.toPlayLocalCoopScreen);
         toInstructionsButton = (Button) findViewById(R.id.toInstructions);
-        toPlayLocalCoopButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openPlayScreen();
-            }
-        });
-        toInstructionsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openInstructions();
-            }
-        });
-        System.out.println("blbl: ending onCreate for Main Activity");
     }
 
     public void openInstructions()
