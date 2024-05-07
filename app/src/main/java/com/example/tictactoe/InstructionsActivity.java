@@ -15,18 +15,19 @@ public class InstructionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructions);
 
-        toHomeButton = (Button) findViewById(R.id.toHome);
-        toHomeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openHome();
-            }
-        });
+//        toHomeButton = (Button) findViewById(R.id.toHome);
+//        toHomeButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                openHome();
+//            }
+//        });
     }
 
-    public void openHome()
+    public void openHome(View v)
     {
         Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        finish();
+        this.startActivity(intent);
     }
 }

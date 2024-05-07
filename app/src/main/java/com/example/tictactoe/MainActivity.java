@@ -20,17 +20,16 @@ public class MainActivity extends AppCompatActivity {
         toPlayLocalCoopButton = (Button) findViewById(R.id.toPlayLocalCoopScreen);
         toInstructionsButton = (Button) findViewById(R.id.toInstructions);
     }
-
-    public void openInstructions()
+    public void openInstructions(View v)
     {
         Intent intent = new Intent(this, InstructionsActivity.class);
-        startActivity(intent);
+        finish();
+        this.startActivity(intent);
     }
-    public void openPlayScreen()
+    public void openPlayScreen(View v)
     {
         Intent intent = new Intent(this, PlayActivity.class);
-        startActivity(intent);
+        finish();
+        this.startActivity(intent);
     }
-
-
 }

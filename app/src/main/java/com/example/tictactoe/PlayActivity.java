@@ -56,9 +56,10 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         //current palyer declaration
         currentPlayer = (TextView)findViewById(R.id.currentPlayer);
     }
-    public void openHome()
+    public void openHome(View v)
     {
         Intent intent = new Intent(this, MainActivity.class);
+        finish();
         startActivity(intent);
     } //starts the home page activity
     @Override

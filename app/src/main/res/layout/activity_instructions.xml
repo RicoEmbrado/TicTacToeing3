@@ -50,6 +50,7 @@
         android:layout_width="310dp"
         android:layout_height="65dp"
         android:fontFamily="sans-serif-medium"
+        android:onClick="openHome"
         android:text="Back Home"
         android:textSize="27dp"
         app:layout_constraintBottom_toBottomOf="parent"
