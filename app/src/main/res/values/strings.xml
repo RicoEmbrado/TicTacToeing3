@@ -3,5 +3,5 @@
     <string name="totalWinsX">0</string>
     <string name="totalWinsO">0</string>
     <string name="blankFill">~</string>
-    <string name="currPlayer">Player ONE START</string>
+    <string name="currPlayer">Player X\'s START</string>
 </resources>
