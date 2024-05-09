@@ -45,9 +45,8 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         buttonBR = (Button) findViewById(R.id.btn8); //BotRight
 
         buttons.addAll(Arrays.asList(buttonTL, buttonTC, buttonTR, buttonML, buttonMC, buttonMR, buttonBL, buttonBC, buttonBR));
-        for (Button button : buttons) {
+        for (Button button : buttons)
             button.setOnClickListener(this);
-        }
     }
     @Override
     public void onClick(View v)
@@ -65,7 +64,9 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
             buttons.get(index).setText(grid[index] == 1 ? "X": "O");
             turnNum++;
             if(turnNum > 4) {
-
+                winCheck(checkDiagonalSum(index));
+                winCheck(checkColumnSum(index));
+                winCheck(checkRowSum(index));
             }
         }
         else { //toast message indicating you cannot place there
@@ -88,19 +89,34 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
             }
             Toast.makeText(PlayActivity.this, text, Toast.LENGTH_LONG).show();
         }
+        else if(turnNum >= 8) {
+            resetButtons();
+            Toast.makeText(PlayActivity.this, "Tie Game", Toast.LENGTH_LONG).show();
+        }
     }
     private int checkDiagonalSum(int gid) //grid index
     {
-        return 0;
+        int winSum = 0;
+        if(gid%2 ==0) {
+            int startIndex = gid%4;
+            int endIndex = startIndex == 0 ? 9: 7;
+            for(int i = startIndex; i < endIndex; i+=(2+startIndex))
+                winSum+=grid[i];
+        }
+        if(gid == 4) { //check the second case for center
+            int temp = 0;
+            for(int i = 2; i < 7; i+=2)
+                temp+=grid[i];
+            if(winSum!=3) winSum = temp;
+        }
+        return winSum;
     }
     private int checkColumnSum(int gid) //grid index
     {
         int winSum = 0;
         int startIndex = gid %3;
         for(int i = startIndex; i < startIndex+7; i+=3)
-        {
             winSum += grid[i];
-        }
         return winSum;
     }
     private int checkRowSum(int gid) //grid index
@@ -108,18 +124,14 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         int winSum = 0;
         int startIndex = gid%3 * 3;
         for(int i = startIndex; i < startIndex+4; i++)
-        {
             winSum += grid[i];
-        }
         return winSum;
     }
 
     private void resetButtons()
     {
         for(Button btn: buttons)
-        {
             btn.setText("~");
-        }
     }
     public void openHome(View v)
     {
