@@ -17,13 +17,16 @@ import java.util.Arrays;
 import java.util.List;
 
 public class PlayActivity extends AppCompatActivity implements View.OnClickListener {
+//    private int winsX = 0;
+//    private int winsO = 0;
     private TextView currentPlayer;
     private Button buttonTL, buttonTC, buttonTR, buttonML, buttonMC, buttonMR, buttonBL, buttonBC, buttonBR;
     private List<Button> buttons = new ArrayList<Button>();
     private int[] grid = new int[9];
-    private boolean xTurn = true;
-//    private int winsX = 0;
-//    private int winsO = 0;
+    int turnNum = 0;
+/*    private boolean xTurn = true;
+      boolean alt representation of turns
+      using "xTurn ^= true;" to swap */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +58,14 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         if(grid[index] == 0) { //set the "grid" to -1 (for O's) or 1 (for X's)
-            grid[index] = xTurn ? 1: -1;
+            grid[index] = turnNum%2 == 0 ? 1: -1;
+            buttons.get(index).setText(grid[index] == 1 ? "X": "O");
+            turnNum++;
+            if(turnNum > 5) {
+//                    reset(winCheckDL());
+//                    reset(winCheckC(0));
+//                    reset(winCheckR(0));
+            }
         }
         else { //toast message indicating you cannot place there
             CharSequence text = "Spot's Taken";
