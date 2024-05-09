@@ -21,7 +21,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     private Button buttonTL, buttonTC, buttonTR, buttonML, buttonMC, buttonMR, buttonBL, buttonBC, buttonBR;
     private List<Button> buttons = new ArrayList<Button>();
     private int[] grid = new int[9];
-//    private int turnNum = 1;
+    private boolean xTurn = true;
 //    private int winsX = 0;
 //    private int winsO = 0;
     @Override
@@ -38,6 +38,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         buttonBL = (Button) findViewById(R.id.btn6); //BotLeft
         buttonBC = (Button) findViewById(R.id.btn7); //BotCenter
         buttonBR = (Button) findViewById(R.id.btn8); //BotRight
+
         buttons.addAll(Arrays.asList(buttonTL, buttonTC, buttonTR, buttonML, buttonMC, buttonMR, buttonBL, buttonBC, buttonBR));
         for (Button button : buttons) {
             button.setOnClickListener(this);
@@ -45,9 +46,23 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     }
     @Override
     public void onClick(View v) {
-        int id = v.getId();
-        Toast.makeText(this, id + "",
-                Toast.LENGTH_LONG).show();
+        int clickedBtn = v.getId();
+        int index = -1; // Default to -1 if not found
+        for (int i = 0; i < buttons.size(); i++) {
+            if (buttons.get(i).getId() == clickedBtn) {
+                index = i;
+                break;
+            }
+        }
+        if(grid[index] == 0) { //set the "grid" to -1 (for O's) or 1 (for X's)
+            grid[index] = xTurn ? 1: -1;
+        }
+        else { //toast message indicating you cannot place there
+            CharSequence text = "Spot's Taken";
+            Toast.makeText(PlayActivity.this, text, Toast.LENGTH_LONG).show();
+        }
+    }
+
 
 //        if(id == R.id.btn0)
 //        {
@@ -94,7 +109,6 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
 //                reset(7);
 //        }
 //        if(id == R.id.btn3)
-    }
 //        {
 //            placement = editCheck(1,0);
 //            if(placement != 0) {
@@ -269,6 +283,10 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
 //                    text, Toast.LENGTH_LONG).show();
 //        }
 //    }
+    private void winCheck(int id)
+    {
+
+    }
     private void resetButtons()
     {
         ArrayList<Button> btnAll = new ArrayList<Button>();
