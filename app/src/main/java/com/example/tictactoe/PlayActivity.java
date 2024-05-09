@@ -14,39 +14,34 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class PlayActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView currentPlayer;
     private Button buttonTL, buttonTC, buttonTR, buttonML, buttonMC, buttonMR, buttonBL, buttonBC, buttonBR;
+    private List<Button> buttons = new ArrayList<Button>();
     private int[] grid = new int[9];
-    private int turnNum = 1;
-    private int winsX = 0;
-    private int winsO = 0;
+//    private int turnNum = 1;
+//    private int winsX = 0;
+//    private int winsO = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
-
-        buttonTL = (Button)findViewById(R.id.btn0); //TopLeft
-        buttonTL.setOnClickListener(this);
-        buttonTC = (Button) findViewById(R.id.btn1); //TopCenter
-        buttonTC.setOnClickListener(this);
-        buttonTR = (Button) findViewById(R.id.btn2); //TopRight
-        buttonTR.setOnClickListener(this);
-        buttonML = (Button) findViewById(R.id.btn3); //MidLeft
-        buttonML.setOnClickListener(this);
-        buttonMC = (Button) findViewById(R.id.btn4); //MidCenter
-        buttonMC.setOnClickListener(this);
-        buttonMR = (Button) findViewById(R.id.btn5); //MidRight
-        buttonMR.setOnClickListener(this);
-        buttonBL = (Button) findViewById(R.id.btn6); //BotLeft
-        buttonBL.setOnClickListener(this);
-        buttonBC = (Button) findViewById(R.id.btn7); //BotCenter
-        buttonBC.setOnClickListener(this);
-        buttonBR = (Button) findViewById(R.id.btn8); //BotRight
-        buttonBR.setOnClickListener(this);
-
         currentPlayer = (TextView)findViewById(R.id.currentPlayer);
+        buttonTL = (Button)findViewById(R.id.btn0); //TopLeft
+        buttonTC = (Button) findViewById(R.id.btn1); //TopCenter
+        buttonTR = (Button) findViewById(R.id.btn2); //TopRight
+        buttonML = (Button) findViewById(R.id.btn3); //MidLeft
+        buttonMC = (Button) findViewById(R.id.btn4); //MidCenter
+        buttonMR = (Button) findViewById(R.id.btn5); //MidRight
+        buttonBL = (Button) findViewById(R.id.btn6); //BotLeft
+        buttonBC = (Button) findViewById(R.id.btn7); //BotCenter
+        buttonBR = (Button) findViewById(R.id.btn8); //BotRight
+        buttons.addAll(Arrays.asList(buttonTL, buttonTC, buttonTR, buttonML, buttonMC, buttonMR, buttonBL, buttonBC, buttonBR));
+        for (Button button : buttons) {
+            button.setOnClickListener(this);
+        }
     }
     @Override
     public void onClick(View v) {
