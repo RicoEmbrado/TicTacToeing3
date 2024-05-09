@@ -70,13 +70,13 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         if(grid[index] == 0) { //set the "grid" to -1 (for O's) or 1 (for X's)
             grid[index] = turnNum%2 == 0 ? 1: -1;
             buttons.get(index).setText(grid[index] == 1 ? "X": "O");
-            if(turnNum > 4) {
+            turnNum++;
+            playerText.setText("Player "+(turnNum%2==0? "X\'s": "O\'s"));
+            if(turnNum >= 5) {
                 winCheck(checkDiagonalSum(index));
                 winCheck(checkColumnSum(index));
                 winCheck(checkRowSum(index));
             }
-            turnNum++;
-            playerText.setText("Player "+(turnNum%2==0? "X\'s": "O\'s"));
         }
         else { //toast message indicating you cannot place there
             CharSequence text = "Spot's Taken";
@@ -86,13 +86,13 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     private void winCheck(int sum)
     {
         if(Math.abs(sum) == 3) {
-            CharSequence text = "Player ";
+            CharSequence text = "";
             if(sum < 0) {
-                text+= "2 Wins!";
+                text+= "O\'s Wins!";
                 oWinsText.setText((Integer.parseInt(oWinsText.getText().toString())+1)+"");//I did this instead of having global int lol
             }
             else {
-                text+= "1 Wins!";
+                text+= "X\'s Wins!";
                 xWinsText.setText((Integer.parseInt(xWinsText.getText().toString())+1)+"");
             }
             Toast.makeText(PlayActivity.this, text, Toast.LENGTH_LONG).show();
@@ -140,8 +140,9 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     private void resetButtons()
     {
         grid = new int[9];
-        turnNum = (turnNum % 2 == 0) ? 1: 0;
-        playerText.setText("Player " + (turnNum % 2 == 0 ? "X's" : "O's") + " START");
+        if(turnNum % 2 != 0) playerText.setText("Player O\'s START");
+        else playerText.setText("Player X\'s START");
+        turnNum = (turnNum % 2 != 0) ? 1: 0;
         for (Button btn : buttons) {
             btn.setText("~");
         }
