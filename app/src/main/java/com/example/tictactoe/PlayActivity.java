@@ -20,13 +20,11 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     private TextView oWinsText;
     private TextView xWinsText;
     private TextView playerText;
+    private boolean isXTurn;
     public static int turnNum = 0;
     public static int winSum = 0;
     public static int startIndex = 0;
     public static int endIndex = 0;
-/*    private boolean xTurn = true;
-      boolean alt representation of turns
-      using "xTurn ^= true;" to swap */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -38,6 +36,9 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         xWinsText = findViewById(R.id.totalXWin);
         oWinsText.setText(0 + "");
         xWinsText.setText(0 + "");
+        grid = new int[9];
+        turnNum = 0;
+        isXTurn = true;
 
         Button buttonTL = findViewById(R.id.btn0); //TopLeft
         Button buttonTC = findViewById(R.id.btn1); //TopCenter
@@ -63,20 +64,21 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         if(grid[index] == 0) { //set the "grid" to -1 (for O's) or 1 (for X's)
-            grid[index] = turnNum%2 == 0 ? 1: -1;
-            BUTTONS.get(index).setText(turnNum%2 == 0 ? "X": "O");
-            if(turnNum >= 4) {
-                winCheck(checkDiagonalSum(index), checkColumnSum(index), checkRowSum(index));
-            }
+            grid[index] = isXTurn? 1: -1;
+            BUTTONS.get(index).setText(isXTurn ? "X": "O");
+            isXTurn ^= true;
+            playerText.setText("Player "+(isXTurn? "X's": "O's"));
             turnNum++;
-            playerText.setText("Player "+(turnNum%2==0? "X's": "O's"));
+            if(turnNum >= 4) {
+                if(winCheck(checkDiagonalSum(index), checkColumnSum(index), checkRowSum(index))) resetButtons();
+            }
         }
         else { //toast message indicating you cannot place there
             CharSequence text = "Spot's Taken";
             Toast.makeText(PlayActivity.this, text, Toast.LENGTH_LONG).show();
         }
     }
-    private void winCheck(int sum1, int sum2, int sum3)
+    private boolean winCheck(int sum1, int sum2, int sum3)
     {
         int win = Math.abs(sum1) == 3? sum1:(Math.abs(sum2) == 3 ? sum2:(Math.abs(sum3) == 3? sum3: -1));
         if(Math.abs(win) == 3) {
@@ -90,19 +92,22 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
                 xWinsText.setText((Integer.parseInt(xWinsText.getText().toString())+1)+"");
             }
             Toast.makeText(PlayActivity.this, text, Toast.LENGTH_LONG).show();
-            resetButtons();
+            return true;
         }
-        else if(turnNum >= 8) {
+        else if(turnNum >= 9) {
             Toast.makeText(PlayActivity.this, "Tie Game", Toast.LENGTH_LONG).show();
             resetButtons();
+            return true;
         }
+        else return false;
     }
     private void resetButtons()
     {
         grid = new int[9];
-        if(turnNum % 2 != 0) playerText.setText("Player O's START");
+        if(isXTurn) playerText.setText("Player O's START");
         else playerText.setText("Player X's START");
-        turnNum = (turnNum % 2 != 0) ? 1: 0;
+        isXTurn ^= true;
+        turnNum = 0;
         for (Button btn : BUTTONS) {
             btn.setText("~");
         }
