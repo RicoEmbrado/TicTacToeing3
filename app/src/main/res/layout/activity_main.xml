@@ -28,6 +28,7 @@
         android:layout_height="65dp"
         android:backgroundTint="#75DDE1"
         android:fontFamily="serif-monospace"
+        android:onClick="openInstructions"
         android:text="How To Play"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -59,13 +60,13 @@
         android:layout_marginBottom="16dp"
         android:backgroundTint="#75DDE1"
         android:fontFamily="serif-monospace"
+        android:onClick="openPlayScreen"
         android:text="Local Co-Op"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.103" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"

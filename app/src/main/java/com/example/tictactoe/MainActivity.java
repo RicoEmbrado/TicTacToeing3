@@ -15,48 +15,53 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        System.out.println("blbl: Entered onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        System.out.println("blbl: about to create some buttons");
         toPlayLocalCoopButton = (Button) findViewById(R.id.toPlayLocalCoopScreen);
         toInstructionsButton = (Button) findViewById(R.id.toInstructions);
-        toPlayAIScreen = (Button) findViewById(R.id.toPlayAIScreen);
-        toPlayLocalCoopButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openPlayScreen();
-            }
-        });
-        toInstructionsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openInstructions();
-            }
-        });
-        toPlayAIScreen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openPlayAIScreen();
-            }
-        });
-        System.out.println("blbl: ending onCreate for Main Activity");
+// <<<<<<< master
+//         toPlayAIScreen = (Button) findViewById(R.id.toPlayAIScreen);
+//         toPlayLocalCoopButton.setOnClickListener(new View.OnClickListener() {
+//             @Override
+//             public void onClick(View view) {
+//                 openPlayScreen();
+//             }
+//         });
+//         toInstructionsButton.setOnClickListener(new View.OnClickListener() {
+//             @Override
+//             public void onClick(View view) {
+//                 openInstructions();
+//             }
+//         });
+//         toPlayAIScreen.setOnClickListener(new View.OnClickListener() {
+//             @Override
+//             public void onClick(View view) {
+//                 openPlayAIScreen();
+//             }
+//         });
+//         System.out.println("blbl: ending onCreate for Main Activity");
+// =======
+// >>>>>>> master
     }
-
-    public void openInstructions()
+    public void openInstructions(View v)
     {
         Intent intent = new Intent(this, InstructionsActivity.class);
-        startActivity(intent);
+        finish();
+        this.startActivity(intent);
     }
-    public void openPlayScreen()
+    public void openPlayScreen(View v)
     {
         Intent intent = new Intent(this, PlayActivity.class);
-        startActivity(intent);
+        finish();
+        this.startActivity(intent);
     }
-    public void openPlayAIScreen()
-    {
-        Intent intent = new Intent(this, PlayAIActivity.class);
-        startActivity(intent);
-    }
+// <<<<<<< master
+//     public void openPlayAIScreen()
+//     {
+//         Intent intent = new Intent(this, PlayAIActivity.class);
+//         startActivity(intent);
+//     }
+// =======
+// >>>>>>> master
 }

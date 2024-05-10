@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,293 +16,140 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
-public class PlayActivity extends AppCompatActivity implements View.OnClickListener {
-    private TextView currentPlayer;
-    private Button
-            buttonTL, buttonTC, buttonTR,
-            buttonML, buttonMC, buttonMR,
-            buttonBL, buttonBC, buttonBR;
-    private int[][] grid
-          = new int[][]{
-            {0, 0, 0},
-            {0, 0, 0},
-            {0, 0, 0}
-    };;
-    private int turnNum = 1;
-    private int winsX = 0;
-    private int winsO = 0;
+public class PlayActivity extends AppCompatActivity implements View.OnClickListener
+{
+    private List<Button> buttons = new ArrayList<>();
+    private int[] grid = new int[9];
+    private TextView oWinsText;
+    private TextView xWinsText;
+    private TextView playerText;
+    private int turnNum = 0;
+    private int winSum = 0;
+    private int startIndex = 0;
+    private int endIndex = 0;
+/*    private boolean xTurn = true;
+      boolean alt representation of turns
+      using "xTurn ^= true;" to swap */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
-        //declare button for all grid locations
-        buttonTL = (Button) findViewById(R.id.btn0); //TopLeft
-        buttonTC = (Button) findViewById(R.id.btn1); //TopCenter
-        buttonTR = (Button) findViewById(R.id.btn2); //TopRight
-        buttonML = (Button) findViewById(R.id.btn3); //MidLeft
-        buttonMC = (Button) findViewById(R.id.btn4); //MidCenter
-        buttonMR = (Button) findViewById(R.id.btn5); //MidRight
-        buttonBL = (Button) findViewById(R.id.btn6); //BotLeft
-        buttonBC = (Button) findViewById(R.id.btn7); //BotCenter
-        buttonBR = (Button) findViewById(R.id.btn8); //BotRight
-        //all onclicks
-        buttonTL.setOnClickListener(this);
-        buttonTC.setOnClickListener(this);
-        buttonTR.setOnClickListener(this);
-        buttonML.setOnClickListener(this);
-        buttonMC.setOnClickListener(this);
-        buttonMR.setOnClickListener(this);
-        buttonBL.setOnClickListener(this);
-        buttonBC.setOnClickListener(this);
-        buttonBR.setOnClickListener(this);
-        //current palyer declaration
-        currentPlayer = (TextView)findViewById(R.id.currentPlayer);
+
+        playerText = findViewById(R.id.currentPlayer);
+        oWinsText = findViewById(R.id.totalOwin);
+        xWinsText = findViewById(R.id.totalXWin);
+        oWinsText.setText(0 + "");
+        xWinsText.setText(0 + "");
+
+        Button buttonTL = findViewById(R.id.btn0); //TopLeft
+        Button buttonTC = findViewById(R.id.btn1); //TopCenter
+        Button buttonTR = findViewById(R.id.btn2); //TopRight
+        Button buttonML = findViewById(R.id.btn3); //MidLeft
+        Button buttonMC = findViewById(R.id.btn4); //MidCenter
+        Button buttonMR = findViewById(R.id.btn5); //MidRight
+        Button buttonBL = findViewById(R.id.btn6); //BotLeft
+        Button buttonBC = findViewById(R.id.btn7); //BotCenter
+        Button buttonBR = findViewById(R.id.btn8); //BotRight
+        buttons.addAll(Arrays.asList(buttonTL, buttonTC, buttonTR, buttonML, buttonMC, buttonMR, buttonBL, buttonBC, buttonBR));
+        for (Button button : buttons)
+            button.setOnClickListener(this);
     }
-    public void openHome()
-    {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    } //starts the home page activity
     @Override
-    public void onClick(View v) {
-        int id = v.getId();
-        int placement;
-        if(id == R.id.btn0)
-        {
-            placement = editCheck(0,0);
-            if(placement != 0) {
-                buttonTL.setText(placement == 1 ? "X" : "O");
-                currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
-                if(turnNum > 5) {
-                    reset(winCheckDL());
-                    reset(winCheckC(0));
-                    reset(winCheckR(0));
-                }
-            }
-            if(turnNum > 9)
-                reset(7);
-        }
-        if(id == R.id.btn1)
-        {
-            placement = editCheck(0,1);
-            if(placement != 0) {
-                buttonTC.setText(placement == 1 ? "X" : "O");
-                currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
-                if(turnNum > 5) {
-                    reset(winCheckC(1));
-                    reset(winCheckR(0));
-                }
-            }
-            if(turnNum > 9)
-                reset(7);
-        }
-        if(id == R.id.btn2)
-        {
-            placement = editCheck(0,2);
-            if(placement != 0) {
-                buttonTR.setText(placement == 1 ? "X" : "O");
-                currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
-                if(turnNum > 5) {
-                    reset(winCheckC(2));
-                    reset(winCheckR(0));
-                    reset(winCheckDR());
-                }
-            }
-            if(turnNum > 9)
-                reset(7);
-        }
-        if(id == R.id.btn3)
-        {
-            placement = editCheck(1,0);
-            if(placement != 0) {
-                buttonML.setText(placement == 1 ? "X" : "O");
-                currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
-                if(turnNum > 5) {
-                    reset(winCheckR(1));
-                    reset(winCheckC(0));
-                }
-            }
-            if(turnNum > 9)
-                reset(7);
-        }
-        if(id == R.id.btn4)
-        {
-            placement = editCheck(1,1);
-            if(placement != 0) {
-                buttonMC.setText(placement == 1 ? "X" : "O");
-                currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
-                if(turnNum > 5) {
-                    reset(winCheckR(1));
-                    reset(winCheckC(1));
-                    reset(winCheckDL());
-                    reset(winCheckDR());
-                }
-            }
-            if(turnNum > 9)
-                reset(7);
-        }
-        if(id == R.id.btn5)
-        {
-            placement = editCheck(1,2);
-            if(placement != 0) {
-                buttonMR.setText(placement == 1 ? "X" : "O");
-                currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
-                if(turnNum > 5) {
-                    reset(winCheckC(2));
-                    reset(winCheckR(1));
-                }
-            }
-            if(turnNum > 9)
-                reset(7);
-        }
-        if(id == R.id.btn6)
-        {
-            placement = editCheck(2,0);
-            if(placement != 0) {
-                buttonBL.setText(placement == 1 ? "X" : "O");
-                currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
-                if(turnNum > 5) {
-                    reset(winCheckDR());
-                    reset(winCheckR(2));
-                    reset(winCheckC(0));
-                }
-            }
-            if(turnNum > 9)
-                reset(7);
-        }
-        if(id == R.id.btn7)
-        {
-            placement = editCheck(2,1);
-            if(placement != 0) {
-                buttonBC.setText(placement == 1 ? "X" : "O");
-                currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
-                if(turnNum > 5) {
-                    reset(winCheckR(2));
-                    reset(winCheckC(1));
-                }
-            }
-            if(turnNum > 9)
-                reset(7);
-        }
-        if(id == R.id.btn8)
-        {
-            placement = editCheck(2,2);
-            if(placement != 0) {
-                buttonBR.setText(placement == 1 ? "X" : "O");
-                currentPlayer.setText(turnNum %2 == 0 ? "Player TWO": "Player ONE");
-                if(turnNum > 5) {
-                    reset(winCheckR(2));
-                    reset(winCheckC(2));
-                    reset(winCheckDL());
-                }
-            }
-            if(turnNum > 9)
-                reset(7);
-        }
-    }
-    private int editCheck(int r, int c)
+    public void onClick(View v)
     {
-        if(grid[r][c] == 0) {
-            if (turnNum % 2 != 0)
-            {
-                turnNum++;
-                grid[r][c] = 1;
-                return 1;
-            }
-            else
-            {
-                turnNum++;
-                grid[r][c] = -1;
-                return -1;
+        int index = -1; // Default to -1 if not found
+        for (int i = 0; i < buttons.size(); i++) {
+            if (buttons.get(i).getId() == v.getId()) {
+                index = i;
+                break;
             }
         }
-        else
-        {
+        if(grid[index] == 0) { //set the "grid" to -1 (for O's) or 1 (for X's)
+            grid[index] = turnNum%2 == 0 ? 1: -1;
+            buttons.get(index).setText(turnNum%2 == 0 ? "X": "O");
+            if(turnNum >= 4) {
+                winCheck(checkDiagonalSum(index), checkColumnSum(index), checkRowSum(index));
+            }
+            turnNum++;
+            playerText.setText("Player "+(turnNum%2==0? "X\'s": "O\'s"));
+        }
+        else { //toast message indicating you cannot place there
             CharSequence text = "Spot's Taken";
-            Toast.makeText(PlayActivity.this,
-                    text, Toast.LENGTH_LONG).show();
-            return 0;
+            Toast.makeText(PlayActivity.this, text, Toast.LENGTH_LONG).show();
         }
     }
-    //win check for digaonal l to r
-    private int winCheckDL()
+    private void winCheck(int sum1, int sum2, int sum3)
     {
-        return grid[0][0] + grid[1][1] + grid[2][2];
-    }
-    //win check for digaonal r to l
-    private int winCheckDR()
-    {
-        return grid[2][0] + grid[1][1] + grid[0][2];
-    }
-    private int winCheckC(int c)
-    {
-        return grid[0][c] + grid[1][c]+ grid[2][c];
-    }
-    private int winCheckR(int r)
-    {
-        return grid[r][0] + grid[r][1]+ grid[r][2];
-    }
-    private void reset(int score)
-    {
-        if(score == 3)
-        {
-            turnNum = 1;
-            resetButtons();
-            currentPlayer.setText(turnNum % 2 == 0 ? "Player TWO START": "Player ONE START");
-            for (int[] i : grid) {
-                Arrays.fill(i, 0);
+        int win = Math.abs(sum1) == 3? sum1:(Math.abs(sum2) == 3 ? sum2:(Math.abs(sum3) == 3? sum3: -1));
+        if(Math.abs(win) == 3) {
+            CharSequence text = "";
+            if(win < 0) {
+                text+= "O\'s Wins!";
+                oWinsText.setText((Integer.parseInt(oWinsText.getText().toString())+1)+"");//I did this instead of having global int lol
             }
-            winsX++;
-            CharSequence text = "Player 1: X Wins!";
-            Toast.makeText(PlayActivity.this,
-                    text, Toast.LENGTH_LONG).show();
-            TextView textView = (TextView)findViewById(R.id.totalXWin);
-            textView.setText(winsX + "");
-        }
-        else if(score == -3)
-        {
-            turnNum = 1;
-            resetButtons();
-            currentPlayer.setText(turnNum % 2 == 0 ? "Player TWO START": "Player ONE START");
-            for (int[] i : grid) {
-                Arrays.fill(i, 0);
+            else {
+                text+= "X\'s Wins!";
+                xWinsText.setText((Integer.parseInt(xWinsText.getText().toString())+1)+"");
             }
-            winsO++;
-            CharSequence text = "Player 2: O Wins!";
-            Toast.makeText(PlayActivity.this,
-                    text, Toast.LENGTH_LONG).show();
-            TextView textView = (TextView)findViewById(R.id.totalOwin);
-            textView.setText(winsO + "");
-        }
-        else if(score == 7)
-        {
-            turnNum = 1;
-            currentPlayer.setText(turnNum % 2 == 0 ? "Player TWO START": "Player ONE START");
+            Toast.makeText(PlayActivity.this, text, Toast.LENGTH_LONG).show();
             resetButtons();
-            for (int[] i : grid) {
-                Arrays.fill(i, 0);
-            }
-            CharSequence text = "TIE GAME";
-            Toast.makeText(PlayActivity.this,
-                    text, Toast.LENGTH_LONG).show();
         }
+        else if(turnNum >= 8) {
+            Toast.makeText(PlayActivity.this, "Tie Game", Toast.LENGTH_LONG).show();
+            resetButtons();
+        }
+    }
+    private int checkDiagonalSum(int gid) //grid index
+    {
+        winSum = 0;
+        if(gid%2 ==0) {
+            startIndex = gid%4;
+            endIndex = startIndex == 0 ? 8: 6;
+            int add = startIndex == 0 ? 4: 2;
+            for(int i = startIndex; i <= endIndex; i+=add)
+                winSum+=grid[i];
+        }
+        if(gid == 4) { //check the second case for center
+            int temp = 0;
+            for(int i = 2; i < 7; i+=2)
+                temp+=grid[i];
+            if(Math.abs(winSum)!=3) winSum = temp;
+        }
+        return winSum;
+    }
+    private int checkColumnSum(int gid) //grid index
+    {
+        winSum = 0;
+        startIndex = gid %3;
+        for(int i = startIndex; i <= startIndex+6; i+=3)
+            winSum += grid[i];
+        return winSum;
+    }
+    private int checkRowSum(int gid) //grid index
+    {
+        winSum = 0;
+        startIndex = gid<3? 0: gid<6?3:6;
+        for(int i = startIndex; i <= startIndex+2; i++)
+            winSum += grid[i];
+        return winSum;
     }
     private void resetButtons()
     {
-        ArrayList<Button> btnAll = new ArrayList<Button>();
-        btnAll.add(buttonTL);
-        btnAll.add(buttonTC);
-        btnAll.add(buttonTR);
-        btnAll.add(buttonML);
-        btnAll.add(buttonMC);
-        btnAll.add(buttonMR);
-        btnAll.add(buttonBL);
-        btnAll.add(buttonBC);
-        btnAll.add(buttonBR);
-        for(Button btn: btnAll)
-        {
+        grid = new int[9];
+        if(turnNum % 2 != 0) playerText.setText("Player O\'s START");
+        else playerText.setText("Player X\'s START");
+        turnNum = (turnNum % 2 != 0) ? 1: 0;
+        for (Button btn : buttons) {
             btn.setText("~");
         }
     }
+    public void openHome(View v)
+    {
+        Intent intent = new Intent(this, MainActivity.class);
+        finish();
+        startActivity(intent);
+    } //starts the home page activity
 }
