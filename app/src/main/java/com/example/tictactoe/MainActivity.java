@@ -18,31 +18,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toPlayLocalCoopButton = (Button) findViewById(R.id.toPlayLocalCoopScreen);
-        toInstructionsButton = (Button) findViewById(R.id.toInstructions);
-// <<<<<<< master
-//         toPlayAIScreen = (Button) findViewById(R.id.toPlayAIScreen);
-//         toPlayLocalCoopButton.setOnClickListener(new View.OnClickListener() {
-//             @Override
-//             public void onClick(View view) {
-//                 openPlayScreen();
-//             }
-//         });
-//         toInstructionsButton.setOnClickListener(new View.OnClickListener() {
-//             @Override
-//             public void onClick(View view) {
-//                 openInstructions();
-//             }
-//         });
-//         toPlayAIScreen.setOnClickListener(new View.OnClickListener() {
-//             @Override
-//             public void onClick(View view) {
-//                 openPlayAIScreen();
-//             }
-//         });
-//         System.out.println("blbl: ending onCreate for Main Activity");
-// =======
-// >>>>>>> master
+        toPlayLocalCoopButton = findViewById(R.id.toPlayLocalCoopScreen);
+        toInstructionsButton = findViewById(R.id.toInstructions);
+        toPlayAIScreen = findViewById(R.id.toPlayAIScreen);
     }
     public void openInstructions(View v)
     {
@@ -56,12 +34,10 @@ public class MainActivity extends AppCompatActivity {
         finish();
         this.startActivity(intent);
     }
-// <<<<<<< master
-//     public void openPlayAIScreen()
-//     {
-//         Intent intent = new Intent(this, PlayAIActivity.class);
-//         startActivity(intent);
-//     }
-// =======
-// >>>>>>> master
+     public void openPlayAIScreen(View v)
+     {
+         Intent intent = new Intent(this, PlayAIActivity.class);
+         finish();
+         this.startActivity(intent);
+     }
 }

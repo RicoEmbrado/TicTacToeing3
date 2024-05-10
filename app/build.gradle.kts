@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "com.example.tictactoe"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.tictactoe"
@@ -37,4 +37,12 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+}
+
+configurations.all {
+    resolutionStrategy {
+        force("org.jetbrains.kotlin:kotlin-stdlib:1.8.22") // Adjust as needed
+        force("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22")
+        force("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22")
+    }
 }
