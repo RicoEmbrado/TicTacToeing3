@@ -4,4 +4,5 @@
     <string name="totalWinsO">0</string>
     <string name="blankFill">~</string>
     <string name="currPlayer">Player X\'s START</string>
+    <string name="startScore">0</string>
 </resources>
