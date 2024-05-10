@@ -17,9 +17,9 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
 {
     private final List<Button> BUTTONS = new ArrayList<>();
     public static int[] grid = new int[9];
-    private final TextView oWinsText = findViewById(R.id.totalOwin);
-    private final TextView xWinsText = findViewById(R.id.totalXWin);
-    private final TextView playerText = findViewById(R.id.currentPlayer);
+    private TextView oWinsText;
+    private TextView xWinsText;
+    private TextView playerText;
     public static int turnNum = 0;
     public static int winSum = 0;
     public static int startIndex = 0;
@@ -33,6 +33,12 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
+        playerText = findViewById(R.id.currentPlayer);
+        oWinsText = findViewById(R.id.totalOwin);
+        xWinsText = findViewById(R.id.totalXWin);
+        oWinsText.setText(0 + "");
+        xWinsText.setText(0 + "");
+
         Button buttonTL = findViewById(R.id.btn0); //TopLeft
         Button buttonTC = findViewById(R.id.btn1); //TopCenter
         Button buttonTR = findViewById(R.id.btn2); //TopRight
@@ -45,8 +51,6 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         BUTTONS.addAll(Arrays.asList(buttonTL, buttonTC, buttonTR, buttonML, buttonMC, buttonMR, buttonBL, buttonBC, buttonBR));
         for (Button button : BUTTONS)
             button.setOnClickListener(this);
-        oWinsText.setText(R.string.startScore);
-        xWinsText.setText(R.string.startScore);
     }
     @Override
     public void onClick(View v)
