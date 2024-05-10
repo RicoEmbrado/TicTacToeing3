@@ -69,25 +69,24 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         }
         if(grid[index] == 0) { //set the "grid" to -1 (for O's) or 1 (for X's)
             grid[index] = turnNum%2 == 0 ? 1: -1;
-            buttons.get(index).setText(grid[index] == 1 ? "X": "O");
+            buttons.get(index).setText(turnNum%2 == 0 ? "X": "O");
+            if(turnNum >= 4) {
+                winCheck(checkDiagonalSum(index), checkColumnSum(index), checkRowSum(index));
+            }
             turnNum++;
             playerText.setText("Player "+(turnNum%2==0? "X\'s": "O\'s"));
-            if(turnNum >= 5) {
-                winCheck(checkDiagonalSum(index));
-                winCheck(checkColumnSum(index));
-                winCheck(checkRowSum(index));
-            }
         }
         else { //toast message indicating you cannot place there
             CharSequence text = "Spot's Taken";
             Toast.makeText(PlayActivity.this, text, Toast.LENGTH_LONG).show();
         }
     }
-    private void winCheck(int sum)
+    private void winCheck(int sum1, int sum2, int sum3)
     {
-        if(Math.abs(sum) == 3) {
+        int win = Math.abs(sum1) == 3? sum1:(Math.abs(sum2) == 3 ? sum2:(Math.abs(sum3) == 3? sum3: -1));
+        if(Math.abs(win) == 3) {
             CharSequence text = "";
-            if(sum < 0) {
+            if(win < 0) {
                 text+= "O\'s Wins!";
                 oWinsText.setText((Integer.parseInt(oWinsText.getText().toString())+1)+"");//I did this instead of having global int lol
             }
@@ -117,7 +116,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
             int temp = 0;
             for(int i = 2; i < 7; i+=2)
                 temp+=grid[i];
-            if(winSum!=3) winSum = temp;
+            if(Math.abs(winSum)!=3) winSum = temp;
         }
         return winSum;
     }
@@ -132,7 +131,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     private int checkRowSum(int gid) //grid index
     {
         winSum = 0;
-        startIndex = gid<3? 0: gid>5?6:3;
+        startIndex = gid<3? 0: gid<6?3:6;
         for(int i = startIndex; i <= startIndex+2; i++)
             winSum += grid[i];
         return winSum;
