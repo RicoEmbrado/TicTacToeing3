@@ -8,4 +8,17 @@
     android:layout_height="match_parent"
     tools:context=".PlayAIActivity">
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
+  <Button
+      android:id="@+id/backHome"
+      android:layout_width="310dp"
+      android:layout_height="65dp"
+      android:fontFamily="serif-monospace"
+      android:onClick="goHome"
+      android:text="Back Home"
+      android:textSize="45dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.977" />
+</androidx.constraintlayout.widget.ConstraintLayout>
